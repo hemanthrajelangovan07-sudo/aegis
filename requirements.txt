@@ -1,0 +1,10 @@
+numpy>=1.26
+pytest>=7.0
+
+# Real, verified-working baseline adapters (Section 6.2). The harness/tests degrade gracefully
+# if these are absent (see bench/baselines.py, tests/test_bench.py's availability-gated tests),
+# but both ARE installed and exercised for real in this build:
+pyahocorasick>=2.0
+hyperscan==0.8.2
+# hyperscan requires libhyperscan5 + libhyperscan-dev at the system level (apt) -- see
+# Dockerfile for the exact apt packages; this is not a pure pip install on its own.

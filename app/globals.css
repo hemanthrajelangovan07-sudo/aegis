@@ -83,29 +83,29 @@
 }
 
 .dark {
-    --background: oklch(0.155 0.008 250);
-    --foreground: oklch(0.95 0.005 250);
-    --card: oklch(0.19 0.01 250);
-    --card-foreground: oklch(0.95 0.005 250);
-    --popover: oklch(0.2 0.01 250);
-    --popover-foreground: oklch(0.95 0.005 250);
-    --primary: oklch(0.82 0.16 78);
-    --primary-foreground: oklch(0.18 0.02 70);
-    --secondary: oklch(0.25 0.012 250);
-    --secondary-foreground: oklch(0.95 0.005 250);
-    --muted: oklch(0.24 0.01 250);
-    --muted-foreground: oklch(0.68 0.015 250);
-    --accent: oklch(0.26 0.014 250);
-    --accent-foreground: oklch(0.95 0.005 250);
-    --destructive: oklch(0.68 0.2 25);
+    --background: oklch(0.12 0.02 270);
+    --foreground: oklch(0.97 0.008 270);
+    --card: oklch(0.17 0.025 272);
+    --card-foreground: oklch(0.97 0.008 270);
+    --popover: oklch(0.18 0.028 272);
+    --popover-foreground: oklch(0.97 0.008 270);
+    --primary: oklch(0.86 0.15 192);
+    --primary-foreground: oklch(0.16 0.04 220);
+    --secondary: oklch(0.22 0.03 272);
+    --secondary-foreground: oklch(0.97 0.008 270);
+    --muted: oklch(0.21 0.025 272);
+    --muted-foreground: oklch(0.7 0.03 270);
+    --accent: oklch(0.72 0.19 295);
+    --accent-foreground: oklch(0.98 0.01 295);
+    --destructive: oklch(0.7 0.2 18);
     --border: oklch(1 0 0 / 9%);
-    --input: oklch(1 0 0 / 14%);
-    --ring: oklch(0.82 0.16 78 / 60%);
-    --chart-1: oklch(0.82 0.16 78);
-    --chart-2: oklch(0.75 0.12 200);
-    --chart-3: oklch(0.68 0.2 25);
-    --chart-4: oklch(0.62 0.02 250);
-    --chart-5: oklch(0.72 0.15 150);
+    --input: oklch(1 0 0 / 13%);
+    --ring: oklch(0.86 0.15 192 / 60%);
+    --chart-1: oklch(0.86 0.15 192);
+    --chart-2: oklch(0.72 0.19 295);
+    --chart-3: oklch(0.7 0.2 18);
+    --chart-4: oklch(0.6 0.03 270);
+    --chart-5: oklch(0.8 0.17 155);
     --sidebar: oklch(0.205 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
     --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -119,11 +119,114 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
-  body {
-    @apply bg-background text-foreground;
-    }
+  }
   html {
     @apply font-sans;
-    }
+    background: var(--background);
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(ellipse 60rem 32rem at 10% -10%, oklch(0.86 0.15 192 / 0.14), transparent 70%),
+      radial-gradient(ellipse 50rem 30rem at 95% 5%, oklch(0.72 0.19 295 / 0.16), transparent 70%),
+      radial-gradient(ellipse 40rem 30rem at 50% 110%, oklch(0.72 0.19 295 / 0.08), transparent 70%);
+    background-attachment: fixed;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(oklch(1 0 0 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 85%);
+  }
+  ::selection {
+    background: oklch(0.86 0.15 192 / 0.3);
+    color: var(--foreground);
+  }
+}
+
+@layer utilities {
+  .panel-glow {
+    box-shadow:
+      0 30px 80px -20px oklch(0 0 0 / 0.6),
+      0 0 0 1px oklch(1 0 0 / 0.06),
+      inset 0 1px 0 oklch(1 0 0 / 0.06);
+  }
+  .text-gradient {
+    background: linear-gradient(100deg, oklch(0.97 0.01 270) 10%, oklch(0.86 0.15 192) 50%, oklch(0.72 0.19 295) 90%);
+    background-size: 200% auto;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 8s ease-in-out infinite alternate;
+  }
+  .glow-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(140deg, oklch(0.86 0.15 192 / 0.7), oklch(1 0 0 / 0.04) 40%, oklch(1 0 0 / 0.04) 60%, oklch(0.72 0.19 295 / 0.7));
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .animate-scan-line {
+    animation: scan-line 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+  .animate-flow {
+    background-size: 200% 100%;
+    animation: flow 2.4s linear infinite;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+  .animate-pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+}
+
+@keyframes gradient-pan {
+  from { background-position: 0% center; }
+  to { background-position: 100% center; }
+}
+@keyframes scan-line {
+  0% { transform: translateY(-10%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+@keyframes flow {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.8 0.17 155 / 0.6); }
+  50% { box-shadow: 0 0 0 6px oklch(0.8 0.17 155 / 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient, .animate-scan-line, .animate-flow, .animate-float, .animate-marquee, .animate-pulse-dot {
+    animation: none;
+  }
 }

@@ -6,7 +6,7 @@ import { Limitations } from "@/components/overview/limitations"
 
 export default function Page() {
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-10 md:px-6 md:py-14">
+    <div className="mx-auto flex max-w-7xl flex-col gap-14 px-4 py-10 md:px-8 md:py-16">
       <Hero />
       <StatGrid />
       <PipelineDiagram />
